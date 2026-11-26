@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║ STAYHOLM ADMIN — REZERVASYON LİSTESİ                                 ║
+  ║                                                                      ║
+  ║ Bu dosya ASP.NET Core MVC'ye taşınırken kolayca bölünebilmesi için   ║
+  ║ "PARTIAL" işaretleriyle ayrılmıştır. Her işaret arasındaki blok      ║
+  ║ olduğu gibi kesilip ilgili .cshtml dosyasına yapıştırılabilir.       ║
+  ║                                                                      ║
+  ║ Önerilen dosya yapısı                                                ║
+  ║   Views/Shared/_AdminLayout.cshtml      → <head>, iskelet, scriptler ║
+  ║   Views/Shared/_AdminSidebar.cshtml     → sol menü                   ║
+  ║   Views/Shared/_AdminTopbar.cshtml      → üst bar                    ║
+  ║   Views/Reservations/Index.cshtml       → @@RenderBody() içeriği      ║
+  ║     ├─ _PageHeader.cshtml               → başlık + aksiyon butonu    ║
+  ║     ├─ _StatCards.cshtml                → özet kartları              ║
+  ║     └─ _ReservationTable.cshtml         → filtre + tablo + sayfalama ║
+  ║   Views/Reservations/_Modals.cshtml     → detay/durum/iptal/not      ║
+  ║   Views/Shared/_AdminUi.cshtml          → işlem menüsü + bildirim    ║
+  ║   wwwroot/css/admin.css                 → <style> içeriği            ║
+  ║   wwwroot/js/admin-reservations.js      → <script> içeriği           ║
+  ║                                                                      ║
+  ║ CSS ve JS de aynı partial adlarıyla bölümlere ayrılmıştır.           ║
+  ║                                                                      ║
+  ║ VERİ: Rezervasyonlar JS dizisinde değil, _ReservationTable içindeki  ║
+  ║ <tbody id="tbody"> satırlarındadır. Düzenleme için oraya bakın.      ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+<!-- ▼▼▼ PARTIAL: Views/Shared/_AdminLayout.cshtml (HEAD) ▼▼▼ -->
+@await Component.InvokeAsync("_AdminLayoutStyleComponentPartial")
+<!-- ▲▲▲ /PARTIAL: _AdminLayout (HEAD) ▲▲▲ -->
+
+<body>
+    <!-- ▼▼▼ PARTIAL: Views/Shared/_AdminLayout.cshtml (BODY AÇILIŞ) ▼▼▼ -->
+    <div class="app">
+        <!-- ▲▲▲ /PARTIAL: _AdminLayout (BODY AÇILIŞ) ▲▲▲ -->
+        <!-- ▼▼▼ PARTIAL: Views/Shared/_AdminSidebar.cshtml ▼▼▼ -->
+        @await Component.InvokeAsync("_AdminLayoutSidebarComponentPartial")
+        <!-- ▲▲▲ /PARTIAL: _AdminSidebar ▲▲▲ -->
+        <!-- ▼▼▼ PARTIAL: Views/Shared/_AdminLayout.cshtml (MAIN AÇILIŞ) ▼▼▼ -->
+        <div class="backdrop" id="sbBackdrop"></div>
+        <div class="main">
+            <!-- ▲▲▲ /PARTIAL: _AdminLayout (MAIN AÇILIŞ) ▲▲▲ -->
+            <!-- ▼▼▼ PARTIAL: Views/Shared/_AdminTopbar.cshtml ▼▼▼ -->
+            @await Component.InvokeAsync("_AdminLayoutNavbarComponentPartial")
+
+            <!-- ▲▲▲ /PARTIAL: _AdminTopbar ▲▲▲ -->
+            <main class="content" id="content">
+                @RenderBody()
+            </main>
+
+           
+
+            <!-- ▼▼▼ PARTIAL: Views/Shared/_AdminLayout.cshtml (MAIN KAPANIŞ) ▼▼▼ -->
+        </div>
+    </div>
+    <!-- ▲▲▲ /PARTIAL: _AdminLayout (MAIN KAPANIŞ) ▲▲▲ -->
+    <!-- ▼▼▼ PARTIAL: Views/Shared/_AdminLayout.cshtml (SCRIPTS) → wwwroot/js/admin-reservations.js ▼▼▼ -->
+    @await Component.InvokeAsync("_AdminLayoutScriptComponentPartial")
+    <!-- ▲▲▲ /PARTIAL: _AdminLayout (SCRIPTS) ▲▲▲ -->
+</body>
+</html>
